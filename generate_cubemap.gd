@@ -15,15 +15,15 @@ func _generate_cubemap():
 		var _temp_viewport = SubViewport.new()
 		var _temp_camera = Camera3D.new()
 		match _a:
-			0: _temp_camera.rotation_degrees.y = -90
-			1: _temp_camera.rotation_degrees.y = 90
+			0: _temp_camera.rotation_degrees.y = -90 ## FRONT
+			1: _temp_camera.rotation_degrees.y = 90 ## BACK
 			2:
-				_temp_camera.rotation_degrees.x = 90
+				_temp_camera.rotation_degrees.x = 90 ##TOP
 				_temp_camera.rotation_degrees.y = 180
 			3:
-				_temp_camera.rotation_degrees.x = -90
+				_temp_camera.rotation_degrees.x = -90 ##BOTTOM
 				_temp_camera.rotation_degrees.y = -180
-			4: _temp_camera.rotation_degrees.y = 180
+			5: _temp_camera.rotation_degrees.y = 180##LEFT
 		_temp_camera.fov = 90.0
 		_temp_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 		_temp_viewport.size = Vector2(_resolution,_resolution)
