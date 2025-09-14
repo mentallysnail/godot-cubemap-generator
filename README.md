@@ -1,1 +1,3 @@
+this was made for Godot 4.X+!
+
 after adding "generate_cubemap.tscn" to your project, simply drag it into whatever scene / place you want to generate a cubemap off and press on "generate" in the editor! this both works in the editor and runtime :) 
