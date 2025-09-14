@@ -1,11 +1,11 @@
 @tool
 extends Node3D
 class_name cubemap
-@export var _generate : bool = false :
+@export var _bake_cubemap : bool = false :
 	set(value): _generate_cubemap()
 @export_dir var _path: String = "res://"
 @export_range(0.0,5.0) var _intensity : float = 1.0
-@export_range(8,512) var _resolution : int = 256
+@export_range(8,1024) var _resolution : int = 256
 @export var anti_aliasing : bool = true
 func _generate_cubemap():
 	var _views : Array
@@ -50,6 +50,6 @@ func _generate_cubemap():
 	_cubemap_fix.take_over_path(_temp_path)
 	ResourceSaver.save(_cubemap_fix, _temp_path, ResourceSaver.FLAG_COMPRESS)
 	for _cleanup in get_children():_cleanup.queue_free()
-	print("Cubemap has been saved to %s" % _temp_path)
+	print("Baked Cubemap. Saved to %s" % _temp_path)
 	_view_texture.clear()
 	_views.clear()
