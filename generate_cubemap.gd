@@ -4,11 +4,10 @@ class_name cubemap
 @export var _generate : bool = false :
 	set(value): _generate_cubemap()
 @export_dir var _path: String = "res://"
+@export_range(0.0,5.0) var _intensity : float = 1.0
 @export_range(8,512) var _resolution : int = 256
 @export var anti_aliasing : bool = true
-var generating : bool = false
 func _generate_cubemap():
-	generating = true
 	var _views : Array
 	var _view_texture : Array =[]
 	for _a in 6:
@@ -39,6 +38,7 @@ func _generate_cubemap():
 		var _tex = _temp_view_texture.get_texture().get_image()
 		_tex.generate_mipmaps()
 		_tex.flip_y()
+		_tex.adjust_bcs(_intensity,1.0,1.0)
 		_view_texture.push_back(_tex)
 	var _temp_path = "%s/%s.res" % [_path, self.name]
 	var _cubemap = Texture2DArray.new()
@@ -50,12 +50,6 @@ func _generate_cubemap():
 	_cubemap_fix.take_over_path(_temp_path)
 	ResourceSaver.save(_cubemap_fix, _temp_path, ResourceSaver.FLAG_COMPRESS)
 	for _cleanup in get_children():_cleanup.queue_free()
-	print("saved cubemap")
+	print("Cubemap has been saved to %s" % _temp_path)
 	_view_texture.clear()
 	_views.clear()
-	generating = false
-#func _input(event: InputEvent) -> void:
-	#if event is InputEventKey:
-		#match event.keycode:
-			#KEY_U:
-				#if !generating: _generate_cubemap()
